@@ -10,10 +10,20 @@ app.use(express.json())
 //TODO: Create your GET Request Route Below: 
 app.get("/restaurants", async (req, res) => {
 
-    const data = await Restaurant.fetchAll()
-    return res.json(data)
+    const data = await Restaurant.findAll()
+    res.json(data)
 })
 
+//restaurant part-2
+/*app.get("/restaurants/:id", async (req, res) => {
+    const restaurant = await Restaurant.findByPk(req.params.id)
+    res.json(restaurant)
+})*/
+
+app.get("/restaurants/:id", async (req, res) => {
+    const data = await Restaurant.findByPk(req.params.id);
+    return res.json(data);
+  });
 
 app.listen(port, () => {
     sequelize.sync();
