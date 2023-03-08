@@ -5,25 +5,13 @@ const {sequelize} = require("./db");
 
 const port = 3000;
 
+const restaurantRouter = require('./routes/Restaurant_route')
+
 app.use(express.json())
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-//TODO: Create your GET Request Route Below: 
-app.get("/restaurants", async (req, res) => {
-
-    const data = await Restaurant.findAll()
-    res.json(data)
-})
-
-//restaurant part-2
-/*app.get("/restaurants/:id", async (req, res) => {
-    const restaurant = await Restaurant.findByPk(req.params.id)
-    res.json(restaurant)
-})*/
-
-app.get("/restaurants/:id", async (req, res) => {
-    const data = await Restaurant.findByPk(req.params.id);
-    return res.json(data);
-  });
+//Express Routes
+app.use('/restaurants', restaurantRouter)
 
 app.listen(port, () => {
     sequelize.sync();
